@@ -119,37 +119,11 @@ function centdiff(A::Array{Float64,2}; dims::Int64, dx::Float64)::Array{Float64,
     return reshape(s, sizes)
 end
 
-
-function lap5_1d(A::Array{Float64,2}; dims::Int64, dx::Float64)::Array{Float64,2} 
-    sizes = size(A)
-    s = zeros(Float64, sizes)
-    if dims == 1
-        for j=1:sizes[2]
-            for i=2:sizes[1]-1
-                s[i,j] = (A[i+1,j] + A[i-1,j] -2*A[i,j])/(dx^2)
-            end
-            s[1,j] = (A[2,j] + A[sizes[1],j] -2*A[1,j])/(dx^2)
-            s[sizes[1],j] = (A[1,j] + A[sizes[1]-1,j] -2*A[sizes[1],j])/(dx^2)
-        end
-    elseif dims == 2
-        for i=1:sizes[1]
-            for j=2:sizes[2]-1
-                s[i,j] = (A[i,j+1] +A[i,j-1] -2*A[i,j])/(dx^2)
-            end
-            s[i,1] = (A[i,2] + A[i,sizes[2]]-2*A[i,1])/(dx^2)
-            s[i,sizes[2]] = (A[i,1] + A[i,sizes[2]-1]-2*A[i,sizes[2]])/(dx^2)
-        end
-    end
-    return reshape(s, sizes)
-end
-
-
 function interpolatec(c::Matrix{Float64};x,y,θ,Nx::Int64,Ny::Int64,Nθ::Int64,λ1::Float64,Δx::Float64,Δy::Float64)::Array{Float64,3}
     itp = Interpolations.interpolate(c, BSpline(Linear(Periodic(OnCell())))) # interpolate linearly between the data points
     stp = Interpolations.scale(itp,x,y) # re-scale to the actual domain
     etp = Interpolations.extrapolate(stp, (Periodic(), Periodic()))
     s = Array{Float64,3}(undef,Nx,Ny,Nθ)
-    s = [etp(x̃+λ1*Δx*cos(θ̃),ỹ+λ1*Δy*sin(θ̃)) for x̃ ∈ x,ỹ ∈ y, θ̃ ∈ θ]
+    s = [etp(x̃+λ1*cos(θ̃),ỹ+λ1*sin(θ̃)) for x̃ ∈ x,ỹ ∈ y, θ̃ ∈ θ]
     return s
 end
-

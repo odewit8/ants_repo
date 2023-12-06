@@ -4,15 +4,10 @@ using DrWatson
 using Parameters
 
 @with_kw struct MyParams
-        # volume fraction
-        phi::Float64; @assert phi<1&&phi>=0
         # model (2, 3, 4)
         Model::Symbol;
         # initial condtion
         IC::String = "Unif"
-        IC_chem::String = "chem0"
-        # initial perturbation size
-        δ::Float64 = 0.01
         # final time
         Tf::Float64 = 0.01
         # number of time outputs
@@ -37,8 +32,7 @@ using Parameters
         Ny::Int = 11         # number of Y-bins
         Nθ::Int = 11         # number of angular-bins
         λ1::Float64 = 0.1
-        ϵ::Float64 = 0.0001
-        # seed1::Int = 119
+        seed1::Int = 119
         # whether to save figs
         saveplot::Bool = false
         # whether to save data
@@ -51,6 +45,5 @@ struct PDEsim
         Rho::Array{Float64,3}
         P::Array{Float64,4}
         T::Array{Float64,1}
-        mob_neg::Int
         Δt_f::Float64
 end
