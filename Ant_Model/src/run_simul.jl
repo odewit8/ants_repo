@@ -22,7 +22,7 @@ params = dict_list(Dict(
     :Ny => 31,
     :Nθ => 21,
     :λ1 => 0.1, 
-    :IC => "rand_unif_seed"
+    :IC => "rand_unif_seed",
     :seed1 => 4472,
     :saveplot => true
 )) .|> (p->MyParams(; pairs(p)...))

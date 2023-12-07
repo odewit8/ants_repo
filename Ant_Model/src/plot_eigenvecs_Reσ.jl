@@ -44,10 +44,6 @@ N = 40
 Pe = 3.5
 D_T = 0.01
 γ = 325
-M1 = construct_Mn(N,ω,D_T,α,γ,Pe,λ)
-v = eigvecs(M1)[:,N]
-σ_n = eigvals(M1)[N]
-v ./= v[1]
 
 λ = 0.1
 M1 = construct_Mn(N,ω,D_T,α,γ,Pe,λ)

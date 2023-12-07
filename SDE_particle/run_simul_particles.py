@@ -1,4 +1,3 @@
-from cProfile import run
 import model2 as md
 import initials as ini
 import numpy as np
@@ -33,11 +32,11 @@ def plot_curve(Xs,Ths,N,L,alpha,lmb,DTh,DT,v0,gamma,dt,steps,init,tag,seed=None)
     ax1.set_xlim(0,L)
     ax1.set_ylim(0,L)
     for i in range(N):
-        ax1.plot(Xs[0::100,i,0],Xs[0::100,i,1],c=cm.viridis((i+0.5)/N),zorder=2*i)
-        ax1.arrow(Xs[200,i,0],Xs[200,i,1],Xs[300,i,0]-Xs[200,i,0],Xs[300,i,1]-Xs[200,i,1],color=cm.viridis((i+0.5)/N),head_width=0.02,head_length=0.02,zorder=2*i+1)
+        ax1.plot(Xs[0::100,i,0],Xs[0::100,i,1],c=cm.hsv((i)/(N)),zorder=2*i)
+        ax1.arrow(Xs[200,i,0],Xs[200,i,1],Xs[300,i,0]-Xs[200,i,0],Xs[300,i,1]-Xs[200,i,1],color=cm.hsv((i)/(N)),head_width=0.02,head_length=0.02,zorder=2*i+1)
         if lmb > 0:
-            ax1.arrow(Xs[11900,i,0],Xs[11900,i,1],Xs[11999,i,0]-Xs[11900,i,0],Xs[11999,i,1]-Xs[11900,i,1],color=cm.viridis((i+0.5)/N),head_width=0.02,head_length=0.02,zorder=2*i+1)
-
+            ax1.arrow(Xs[11900,i,0],Xs[11900,i,1],Xs[11999,i,0]-Xs[11900,i,0],Xs[11999,i,1]-Xs[11900,i,1],color=cm.hsv((i)/(N)),head_width=0.02,head_length=0.02,zorder=2*i+1)
+    plt.show()
     fig.savefig("curves_N={}_L={}_alpha={}_lambda={}_DTh={}_DT={}_v0={}_gamma={}_dt={}_steps={}_init={}_{}_{}.eps".format(N,L,alpha,lmb,DTh,DT,v0,gamma,dt,steps,init,tag,seed))
 
 

@@ -41,7 +41,6 @@ class PeriodicBoundary(SubDomain):
             y[1] = x[1] - 1.
 
 
-
 pbX = PeriodicBoundaryX()
 pb = PeriodicBoundary()
 

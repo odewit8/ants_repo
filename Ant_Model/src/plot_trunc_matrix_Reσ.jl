@@ -24,7 +24,7 @@ function construct_M(N,ω,D_T,D_R,D,α,η,γ,v0,λ)
 end
 
 function sigmaAC(v0,γ,D_T,λ,ω)
-    return -0.5*ω^2*v0^2+(γ*v0*ω^2)/(2*(ω^2+1))-ω^2*D_T+(ω^4*λ*γ*v0^2)/(16*(ω^2+1))
+    return -0.5*ω^2*v0^2+(γ*v0*ω^2)/(2*(ω^2+1))-ω^2*D_T
 end
 
 ω = 2*pi
@@ -63,18 +63,11 @@ for N ∈ Ns
     push!(heatmaps,heatmap)
 end
 
-heatmapσλ = zeros(howmany,howmany)
-for i ∈ 1:size(vs)[1], j ∈ 1:size(γs)[1]
-    γ = γs[j]
-    v0 = vs[i]
-    heatmapσλ[i,j] = sigmaAC(v0,γ,D_T,λ,ω)
-end
-
 heatmapσ0 = zeros(howmany,howmany)
 for i ∈ 1:size(vs)[1], j ∈ 1:size(γs)[1]
     γ = γs[j]
     v0 = vs[i]
-    heatmapσ0[i,j] = sigma02(v0,γ*(1+2*pi*λ),D_T,0,ω)
+    heatmapσ0[i,j] = sigmaAC(v0,γ,D_T,λ,ω)
 end
 
 fig, axs = plt.subplots(1, 1, figsize=(5,4))
@@ -110,7 +103,6 @@ axs.set_yticks(ticks=range(0,howmany-1,5),labels=range(0,maxv0,5),fontsize=12)
 axs.legend(labels1, [L"n=%$(Ns[1])",L"n=%$(Ns[2])",L"n=%$(Ns[3])",L"n=%$(Ns[4])",L"n=%$(Ns[5])",L"n=%$(Ns[6])"],loc="lower right",framealpha=1.0,fontsize=10)
 # axs.legend(labels1, [L"n=%$(Ns[1])",L"n=%$(Ns[2])",L"n=%$(Ns[3])",L"\sigma_{\mathrm{AC}}=0"],loc="lower right",framealpha=1.0,fontsize=10)
 
-# fig.suptitle(L"\Re(\sigma_n)=0,D_T=%$(D_T),\lambda=%$(λ)",fontsize=10)
 display(fig)
 # fig.savefig("linear_instabs_λ=$(λ)_D_T=$(D_T)_k.eps",bbox_inches="tight")
 # fig.savefig("linear_instabs_λ=$(λ)_D_T=$(D_T)_k_AC2.eps",bbox_inches="tight")

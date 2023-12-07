@@ -38,47 +38,4 @@ def init_X_Th(N,L,init,seed):
         X[:,0] = np.random.uniform(0,L,N)
         X[:,1] = np.random.uniform(0.4*L,0.6*L,N)
         Th = np.random.randint(0,2,N)*np.pi
-    elif init == "polarline":
-        X = np.zeros((N,2))
-        X[:,0] = np.random.uniform(0,L,N)
-        X[:,1] = 0.5*np.ones(N)
-        Th = np.random.randint(0,2,N)*np.pi
-    elif init == "polarline2":
-        X = np.zeros((N,2))
-        X[:,0] = np.linspace(0,1,num=N)
-        X[:,1] = 0.5*np.ones(N)
-        Th = np.resize([0,1], N)*np.pi
-    elif init == "polar3":
-        X = np.zeros((N,2))
-        n = int(np.sqrt(N))
-        xs = np.linspace(0,1,num=n,endpoint=False)
-        ys0 = np.linspace(0,1,num=n)
-        ys = 0.35+0.3*(ys0 + np.sin(2*np.pi*ys0)/(2*np.pi))
-        for i in range(n):
-            X[n*i:n*(i+1),0] = xs
-            X[n*i:n*(i+1),1] = ys[i]
-        Th = np.random.randint(0,2,N)*np.pi
-    elif init == "polar4":
-        X = np.zeros((N,2))
-        n = int(np.sqrt(N))
-        xs = np.linspace(0,1,num=n,endpoint=False)
-        ys0 = np.linspace(0,1,num=n)
-        ys = 0.30+0.4*(ys0 + np.sin(2*np.pi*ys0)/(2*np.pi))
-        for i in range(n):
-            X[n*i:n*(i+1),0] = xs
-            X[n*i:n*(i+1),1] = ys[i]
-        Th = np.zeros(N)
-    elif init == "square_0p":
-        X = np.random.uniform(0.0,L,(N,2))
-        Th = np.resize([0,1], N)*np.pi
-    elif init == "square_0p2":
-        X = np.zeros((N,2))
-        X[:,0] = np.linspace(0,1,num=N,endpoint=False)
-        X[:,1] = 0.5
-        Th = np.resize([0,1], N)*np.pi
-    elif init == "square_1p":
-        X = np.zeros((N,2))
-        X[:,0] = ys = np.linspace(0,1,num=N,endpoint=False)
-        X[:,1] = 0.5
-        Th = np.ones(N)*np.pi
     return X, Th
