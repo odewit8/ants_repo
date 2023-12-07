@@ -13,7 +13,7 @@ def give_dC(X,Y,L,alpha):
         B[i,i,0] = 0
         B[i,i,1] = 0
     E = np.sqrt(B[:,:,0]**2+B[:,:,1]**2)
-    C = np.divide(1,E)
+    C = np.divide(1,E,out=np.zeros_like(E), where=E!=0)
     C[C==np.inf] = 0
     A = B*C[:,:,None]
     D = -kvp(1,np.sqrt(alpha)*E)
